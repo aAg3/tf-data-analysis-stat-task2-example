@@ -8,11 +8,7 @@ chat_id = 348708372 # Ваш chat ID, не меняйте название пе�
 
 def solution(p: float, x: np.array) -> tuple:
     alpha = 1 - p
-    max_x = x.max()
-    n = len(x)
-    delta = (max_x - 0.095) / np.sqrt(n + 1) * (1 / alpha) ** (1 / (n + 1))
-
-    left_bound = max_x - delta
-    right_bound = np.inf
-
-    return left_bound, right_bound
+    loc = x.mean()
+    scale = (x.max() - 0.095) / np.sqrt(3)
+    return loc - scale * norm.ppf(1 - alpha / 2), \
+           loc - scale * norm.ppf(alpha / 2)
